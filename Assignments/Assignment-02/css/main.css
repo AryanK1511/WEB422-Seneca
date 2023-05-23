@@ -1,3 +1,19 @@
+/* ========== NAVBAR STYLES ========== */
+.navbar-brand {
+    font-size: larger;
+    font-weight: 700;
+}
+
+#searchForm .btn, #searchForm input {
+    border: 2px solid;
+    font-weight: 600;
+}
+
+.searchbar-btn {
+    margin-left: 10px;
+}
+
+/* ========== GRID STYLES ========== */
 #moviesTable tr:hover { 
     cursor:pointer; 
 }

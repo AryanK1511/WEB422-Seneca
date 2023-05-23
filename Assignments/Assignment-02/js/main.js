@@ -23,7 +23,8 @@ const perPage = 10;
 
 // Implements the functionality of the website
 function loadMovieData(title = null) {
-    fetchMovieData(null, title)
+    // Fetches the movies by making API calls
+    fetchMovieData(null, title) // The first param is null as we are not filtering using ID
     .then(response => {
         let movieRows = `${response.map(movie => (
             `<tr data-id=${movie._id} class="movie-row hover-shadow">
@@ -36,6 +37,7 @@ function loadMovieData(title = null) {
         )).join('')}`;
         tableBody.innerHTML = movieRows;
         currentPageNumber.textContent = page;
+        // Adding click events to all the movie rows to display modals for each one of them
         addClickEvents(document.querySelectorAll(".movie-row"));
     })
     .catch((error) => {
@@ -47,15 +49,19 @@ function loadMovieData(title = null) {
 function fetchMovieData(id = null, title = null) {
     return new Promise((resolve, reject) => {
         let url;
+        // Check if the ID is null. If it is null, that means that we want to access all movies
         if (id === null) {
+            // Filtering by the title (case sensitive)
             if (title !== null) {
                 url = `https://dull-jade-badger-vest.cyclic.app/api/movies?page=${page}&perPage=${perPage}&title=${title}`;
                 paginationControls.classList.add("d-none");
             } else {
+                // Getting all movies
                 url = `https://dull-jade-badger-vest.cyclic.app/api/movies?page=${page}&perPage=${perPage}`;
                 paginationControls.classList.remove("d-none");
             }
     
+            // Making the API call
             fetch(url)
             .then(response => {
                 resolve(response.json());
@@ -65,6 +71,7 @@ function fetchMovieData(id = null, title = null) {
             });
         }
         else {
+            // If the ID is provided, we get the movie by filtering by ID
             fetch(`https://dull-jade-badger-vest.cyclic.app/api/movies/${id}`)
             .then(response => {
                 resolve(response.json());
@@ -80,9 +87,10 @@ function fetchMovieData(id = null, title = null) {
 function addClickEvents(rows) {
     rows.forEach(row => {
         row.addEventListener("click", () => {
-            console.log(row.getAttribute("data-id"));
+            // If a row id clicked, the movie is fetched by the movie ID
             fetchMovieData(row.getAttribute("data-id"))
             .then((movie) => {
+                // Modal pops up on the screen which is customized according to the movie clicked
                 generateCustomModal(movie);
             })
             .catch((error) => {
@@ -115,6 +123,9 @@ function generateCustomModal(movie) {
 
 // Events occur when rest of the DOM content is loaded
 window.addEventListener("DOMContentLoaded", (event) => {
+    // Calls the funtion to populate the table
+    loadMovieData()
+
     // Click event for the "previous page" pagination button
     document.getElementById("prev-page").addEventListener("click", () => {
         (page > 1) ? page-- : page;
@@ -127,17 +138,15 @@ window.addEventListener("DOMContentLoaded", (event) => {
         loadMovieData();
     });
 
-    // Submit event for the "searchForm" form
+    // Displays the movies which correspond to the name in the search bar
     document.getElementById("searchForm").addEventListener("submit", (event) => {
         event.preventDefault();
         loadMovieData(document.getElementById("title").value);
     });
 
-    // Click event for the "clearForm" button
+    // Clears the form
     document.getElementById("clearForm").addEventListener("click", () => {
         document.getElementById("title").value = "";
         loadMovieData();
     });
 });
-
-loadMovieData()
