@@ -6,7 +6,7 @@ export default function PageHeader({ text }) {
         <>
             <Card className="bg-light">
                 <Card.Body>
-                    { text }
+                    <strong>{ text }</strong>
                 </Card.Body>
             </Card>
             <br />
