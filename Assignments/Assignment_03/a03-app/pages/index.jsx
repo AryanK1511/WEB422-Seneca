@@ -1,3 +1,16 @@
+/*********************************************************************************
+*  WEB422 – Assignment 3
+*  I declare that this assignment is my own work in accordance with Seneca Academic Policy.  
+*  No part of this assignment has been copied manually or electronically from any other source
+*  (including web sites) or distributed to other students.
+* 
+*  Name: Aryan Khurana
+*  Student ID: 145282216
+*  Date: 3 June 2023
+*  Cyclic Link:
+*
+********************************************************************************/ 
+
 import React, { useState, useEffect } from "react";
 import PageHeader from "@/components/PageHeader";
 import useSWR from 'swr';
@@ -33,6 +46,7 @@ export default function Home() {
     <>
       <PageHeader text="Film Collection: Sorted by Date"/>
       <Accordion defaultActiveKey="0">
+        {/* Loading an accordion for each movie in the pageData array */}
         {
           pageData.map((movie, i) => (
             <Accordion.Item eventKey={movie._id} key={movie._id}>

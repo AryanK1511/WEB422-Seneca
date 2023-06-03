@@ -11,6 +11,7 @@ export function getStaticProps() {
         fetch("https://dull-jade-badger-vest.cyclic.app/api/movies/573a13b9f29313caabd4ddff")
             .then(res => res.json())
             .then(data => {
+                // Assign the data to props that we could use later in our function
                 resolve({ props: { staticPost: data } })
             })
             .catch(err => {
