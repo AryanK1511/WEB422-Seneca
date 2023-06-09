@@ -1,1 +1,1 @@
-# WEB422-Next-App
+# WEB422 React.js/Next.js Web Application
