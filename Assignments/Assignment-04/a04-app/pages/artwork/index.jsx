@@ -14,34 +14,41 @@ const PER_PAGE = 12
 export default function ArtHome() {
     const router = useRouter();
     // Get the query from the path using the router
-    // let finalQuery = router.asPath.split('?')[1];
-    let finalQuery = "q=sunflowers"
+    // Create a URLSearchParams object with the URL query parameters
+    const searchParams = new URLSearchParams(router.asPath);
+    // Get the value of the "q" parameter
+    const qParam = searchParams.get("q");
+    let finalQuery = qParam
 
     // Add the artworkList and page to the state
-    let [ artworkList, setArtworkList ] = useState([]);
+    let [ artworkList, setArtworkList ] = useState(null);
     let [ page, setPage ] = useState(1)
 
     // Make a call to the museum API using the objectID passed as props to this component
-    const { data, error } = useSWR(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=sunflowers`);
+    const { data, error } = useSWR(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${finalQuery}`);
 
+    useEffect(() => {
+        console.log('Artwork List:', artworkList);
+      }, [artworkList]);
+      
     // Create a 2D array of data for paging that is set in the state 
     useEffect(() => {
-        let results = []
-        console.log(data)
-        for (let i = 0; i < data?.objectIDs?.length; i += PER_PAGE) {
-            const chunk = data?.objectIDs.slice(i, i + PER_PAGE);
-            results.push(chunk);
-        } 
-        console.log(results);
-        setArtworkList(results);
-        setPage(1);
-    }, [ data ]);
+        if (data != null && data != undefined) {
+            let results = []
+            for (let i = 0; i < data?.objectIDs?.length; i += PER_PAGE) {
+                const chunk = data?.objectIDs.slice(i, i + PER_PAGE);
+                results.push(chunk);
+            } 
+            setArtworkList(results);
+            setPage(1);
+        }
+    }, [data]);
 
     // Throw an error if the API request fails
     if (error) {
         return <Error statusCode={404} />;
     } else {
-        if (!data || data.length === 0) {
+        if (!artworkList) {
             return null;
         }
     }
@@ -58,18 +65,20 @@ export default function ArtHome() {
             {artworkList.length > 0 ? (
                 <>
                     <Row className="gy-4">
-                    {artworkList[page - 1].map((currentObjectID) => (
-                        <Col lg={3} key={currentObjectID}>
-                        <ArtworkCard objectID={currentObjectID} />
-                        </Col>
-                    ))}
+                        {artworkList[page - 1].map((currentObjectID) => (
+                            <Col lg={3} key={currentObjectID}>
+                    <ArtworkCard objectID={currentObjectID} />
+                            </Col>
+                        ))}
                     </Row>
                     <Row>
-                    <Pagination>
-                        <Pagination.Prev onClick={previousPage} />
-                        <Pagination.Item>{page}</Pagination.Item>
-                        <Pagination.Next onClick={nextPage} />
-                    </Pagination>
+                        <Col>
+                            <Pagination>
+                                <Pagination.Prev onClick={previousPage} />
+                                <Pagination.Item>{page}</Pagination.Item>
+                                <Pagination.Next onClick={nextPage} />
+                            </Pagination>
+                        </Col>
                     </Row>
                 </>
                 ) : (

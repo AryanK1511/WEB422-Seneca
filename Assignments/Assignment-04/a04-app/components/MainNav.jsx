@@ -20,13 +20,16 @@ export default function MainNav() {
     // When the user clicks on the search button, the form is submitted and the app redirects the user to the custom URL requested
     const handleSubmit = (event) => {
         event.preventDefault();
-        router.push(`/artwork?title=true&q=${searchText}`)
+
+        console.log(event);
+        router.push(`/artwork?title=true&q=${searchText}`);
+        setSearchText("");
     }
 
     return (
         <>
-            <Navbar expand="lg" className="bg-dark navbar-dark fixed-top">
-                <Container fluid>
+            <Navbar expand="lg" className="bg-dark navbar-dark fixed-top nav-bar">
+                <Container>
                     <Navbar.Brand>Aryan Khurana</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
@@ -44,7 +47,7 @@ export default function MainNav() {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            <br /><br />  
+            <br /><br /><br /> 
         </>
     );
 }

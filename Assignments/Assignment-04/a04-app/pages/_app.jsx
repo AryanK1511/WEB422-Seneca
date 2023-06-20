@@ -1,11 +1,12 @@
-import '@/styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@/styles/globals.css'
 import Layout from '@/components/Layout';
 import { SWRConfig } from 'swr';
 
 export default function App({ Component, pageProps }) {
   return (
-    <Layout>
+    <div className='global'>
+      <Layout>
       <SWRConfig value={{
         fetcher:
           async url => {
@@ -18,9 +19,10 @@ export default function App({ Component, pageProps }) {
             }
             return res.json()
           }
-      }}>
-        <Component {...pageProps} />
-      </SWRConfig>
-    </Layout>
+        }}>
+          <Component {...pageProps} />
+        </SWRConfig>
+      </Layout>
+    </div>
   );
 }
