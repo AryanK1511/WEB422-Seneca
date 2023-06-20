@@ -3,7 +3,10 @@ This repository contains a collection of all the source code and files that I us
 You can find the course notes here: [WEB422 Notes](https://webprogrammingforappsandservices.sdds.ca)
 
 ## Marks secured
-
+- **Assignment 1:** 100 / 100
+- **Assignment 2:** Not Released
+- **Assignment 3:** Not Released
+- **Assignment 4:** Not finished yet
 
 # Disclaimer
 Please don't just copy the code mindlessly without trying to solve the problems yourself, it's totally pointless if you actually wanna learn how to write software and a blatant violation of the [Academic Integrity](https://www.senecacollege.ca/about/policies/academic-integrity-policy.html) policy of the course.
