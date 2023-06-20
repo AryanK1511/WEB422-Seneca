@@ -1,6 +1,6 @@
 # WEB422 Learning and Assignments
 This repository contains a collection of all the source code and files that I used in order to learn Web Development and complete all the assignments as a part of WEB422 course at Seneca College. 
-You can find the course notes here: [WEB422 Notes](https://webprogrammingforappsandservices.sdds.ca))
+You can find the course notes here: [WEB422 Notes](https://webprogrammingforappsandservices.sdds.ca)
 
 ## Marks secured
 
