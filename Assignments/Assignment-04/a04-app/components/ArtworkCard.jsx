@@ -11,7 +11,6 @@ export default function ArtworkCard({ objectID }) {
 
     // Throw an error if the API request fails
     if (error) {
-        console.log("sffsfsfs")
         return <Error statusCode={404} />;
     } else {
         // Validate the data

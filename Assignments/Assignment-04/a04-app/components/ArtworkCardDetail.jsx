@@ -1,8 +1,6 @@
 import React from 'react';
 import useSWR from 'swr';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Link from 'next/link';
 
 export default function ArtworkCardDetail({ objectID }) {
     // Make a call to the museum API using the objectID passed as props to this component

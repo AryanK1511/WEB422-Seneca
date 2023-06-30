@@ -73,6 +73,7 @@ export default function ArtHome() {
                     </Row>
                     <Row>
                         <Col>
+                            <br /><br />
                             <Pagination>
                                 <Pagination.Prev onClick={previousPage} />
                                 <Pagination.Item>{page}</Pagination.Item>

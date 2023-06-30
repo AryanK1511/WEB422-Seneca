@@ -19,12 +19,14 @@ export default function AdvancedSearch() {
     // Function takes the form data (ie: the data parameter) and generates a queryString
     const submitForm = (data) => {
         let queryString = "";
-        queryString += data.geoLocation && `&geoLocation=${data.geoLocation}`;
-        queryString += data.medium && `&medium=${encodeURIComponent(data.medium)}`;
+        queryString += `searchBy=${encodeURIComponent(data.searchBy)}`;
+        queryString += data.geoLocation ? `&geoLocation=${encodeURIComponent(data.geoLocation)}` : "";
+        queryString += data.medium ? `&medium=${encodeURIComponent(data.medium)}` : "";
         queryString += `&isOnView=${data.isOnView || false}`;
         queryString += `&isHighlight=${data.isHighlight || false}`;
-        queryString += `&q=${encodeURIComponent(data.q)}`;
+        queryString += `&q=${encodeURIComponent(data.searchQuery)}`;
 
+        console.log(`/artwork?${queryString}`);
         router.push(`/artwork?${queryString}`);
         reset();
     };
