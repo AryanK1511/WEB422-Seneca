@@ -10,7 +10,7 @@ export default function ArtworkById() {
 
   return (
     <Row>
-      <Col>
+      <Col className="d-flex justify-content-center">
         <ArtworkCardDetail objectID={objectID} />
       </Col>
     </Row>

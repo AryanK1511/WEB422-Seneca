@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
+import Error from 'next/error';
 
 export default function ArtworkCard({ objectID }) {
     // Make a call to the museum API using the objectID passed as props to this component
@@ -10,12 +11,9 @@ export default function ArtworkCard({ objectID }) {
 
     // Throw an error if the API request fails
     if (error) {
+        console.log("sffsfsfs")
         return <Error statusCode={404} />;
     } else {
-        // console.log("sdfjivubgasivghaisvgbua");
-        // if (data.message) {
-        //     console.log(data.message);
-        // }
         // Validate the data
         if (!data || data.length === 0) {
             return null;

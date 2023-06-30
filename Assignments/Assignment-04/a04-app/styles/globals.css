@@ -1,5 +1,8 @@
 /* ========== GLOBAL STYLES ========== */
-.global {
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
     background-color: #15130c;
 }
 
@@ -12,6 +15,10 @@
     padding: 10px;
     font-weight: 500;
     color: #fff;
+}
+
+.home-wik-link {
+    text-decoration: none;
 }
 
 .neon-glow {
@@ -38,4 +45,19 @@
 .card-image {
     height: 200px; /* Adjust the height as per your requirement */
     object-fit: cover;
+}
+
+/* ========== FORM ========== */
+.form-label {
+    font-weight: 600;
+    color: #fff;
+}
+
+.form-label-muted {
+    font-weight: 400;
+    color: #fff;
+}
+
+.is-invalid {
+    color: red;
 }
