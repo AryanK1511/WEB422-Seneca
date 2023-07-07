@@ -4,7 +4,7 @@ You can find the course notes here: [WEB422 Notes](https://webprogrammingforapps
 
 ## Marks secured
 - **Assignment 1:** 100 / 100
-- **Assignment 2:** Not Released
+- **Assignment 2:** 90 / 100 (The modal does not close when you click outside of it)
 - **Assignment 3:** Not Released
 - **Assignment 4:** Not finished yet
 
