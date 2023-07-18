@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import validObjectIDList from '@/public/data/validObjectIDList.json';
 import useSWR from 'swr';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -13,12 +14,6 @@ const PER_PAGE = 12
 
 export default function ArtHome() {
     const router = useRouter();
-    // Get the query from the path using the router
-    // Create a URLSearchParams object with the URL query parameters
-    // const searchParams = new URLSearchParams(router.asPath);
-    // Get the value of the "q" parameter
-    // const qParam = searchParams.get("q");
-    // let finalQuery = qParam
     let finalQuery = router.asPath.split('?')[1];
 
     // Add the artworkList and page to the state
@@ -27,19 +22,17 @@ export default function ArtHome() {
 
     // Make a call to the museum API using the objectID passed as props to this component
     const { data, error } = useSWR(`https://collectionapi.metmuseum.org/public/collection/v1/search?${finalQuery}`);
-
-    useEffect(() => {
-        console.log('Artwork List:', artworkList);
-      }, [artworkList]);
       
     // Create a 2D array of data for paging that is set in the state 
     useEffect(() => {
         if (data != null && data != undefined) {
+            // This has the effect of eliminating objectIDs from our search results that are not in the validObjectIDList
+            let filteredResults = validObjectIDList.objectIDs.filter(x => data.objectIDs?.includes(x));
             let results = []
-            for (let i = 0; i < data?.objectIDs?.length; i += PER_PAGE) {
-                const chunk = data?.objectIDs.slice(i, i + PER_PAGE);
+            for (let i = 0; i < filteredResults.length; i += PER_PAGE) {
+                const chunk = filteredResults.slice(i, i + PER_PAGE);
                 results.push(chunk);
-            } 
+            }            
             setArtworkList(results);
             setPage(1);
         }

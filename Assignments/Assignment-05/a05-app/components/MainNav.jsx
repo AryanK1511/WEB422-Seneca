@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 export default function MainNav() {
     const router = useRouter();
     const [ searchText, setSearchText ] = useState("");
+    const [ isExpanded, setIsExpanded ] = useState(false);
 
     // As the input to the search bar changes, this function updates the search text in real time using state
     const updateSearchText = (event) => {
@@ -19,6 +20,7 @@ export default function MainNav() {
 
     // When the user clicks on the search button, the form is submitted and the app redirects the user to the custom URL requested
     const handleSubmit = (event) => {
+        setIsExpanded(false);
         event.preventDefault();
         console.log(searchText);
         if (searchText.trim() != '') {
@@ -29,21 +31,22 @@ export default function MainNav() {
 
     return (
         <>
-            <Navbar expand="lg" className="bg-dark navbar-dark fixed-top nav-bar">
+            <Navbar expand="lg" className="bg-dark navbar-dark fixed-top nav-bar" expanded={isExpanded}>
                 <Container>
                     <Navbar.Brand>Aryan Khurana</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="navbarScroll" />
+                    <Navbar.Toggle onClick={() => setIsExpanded(!isExpanded)} aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                     <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-                        <Link href="/" passHref legacyBehavior><Nav.Link>Home</Nav.Link></Link>
-                        <Link href="/search" passHref legacyBehavior><Nav.Link>Advanced Search</Nav.Link></Link>
+                        <Link href="/" passHref legacyBehavior><Nav.Link onClick={() => setIsExpanded(false)}>Home</Nav.Link></Link>
+                        <Link href="/search" passHref legacyBehavior><Nav.Link onClick={() => setIsExpanded(false)}>Advanced Search</Nav.Link></Link>
                     </Nav>
 
                     {/* Form uses the idea of controlled components and keeps track of state */}
+                    &nbsp;
                     <Form className="d-flex" onSubmit={handleSubmit}>
                         <Form.Control onChange={updateSearchText} type="search" placeholder="Search" className="me-2" aria-label="Search" />
                         <Button type='submit' variant="outline-success">Search</Button>
-                    </Form>
+                    </Form>&nbsp;
                     
                     </Navbar.Collapse>
                 </Container>
