@@ -47,6 +47,12 @@ export default function MainNav() {
                         <Form.Control onChange={updateSearchText} type="search" placeholder="Search" className="me-2" aria-label="Search" />
                         <Button type='submit' variant="outline-success">Search</Button>
                     </Form>&nbsp;
+
+                    <Nav>
+                        <NavDropdown title="User Name" id="basic-nav-dropdown">
+                        <Link href="/favourites" passHref legacyBehavior><Nav.Link><NavDropdown.Item onClick={() => setIsExpanded(false)} href="#action/3.1">Action</NavDropdown.Item></Nav.Link></Link>
+                        </NavDropdown>
+                    </Nav>
                     
                     </Navbar.Collapse>
                 </Container>

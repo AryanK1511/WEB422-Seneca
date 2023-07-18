@@ -17,7 +17,7 @@ export default function ArtHome() {
     let finalQuery = router.asPath.split('?')[1];
 
     // Add the artworkList and page to the state
-    let [ artworkList, setArtworkList ] = useState(null);
+    let [ artworkList, setArtworkList ] = useState([]);
     let [ page, setPage ] = useState(1)
 
     // Make a call to the museum API using the objectID passed as props to this component
