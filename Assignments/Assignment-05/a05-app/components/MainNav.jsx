@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -12,31 +12,42 @@ import { searchHistoryAtom } from '@/store';
 
 export default function MainNav() {
     const router = useRouter();
-    const [ searchText, setSearchText ] = useState("");
+    const [ searchText, setSearchText ] = useState('');
     const [ isExpanded, setIsExpanded ] = useState(false);
     const [ searchHistory, setSearchHistory ] = useAtom(searchHistoryAtom);
+    // Used to set the search field value to empty
+    const searchTextRef = useRef(null);
+    const navbarRef = useRef(null);
 
-    // As the input to the search bar changes, this function updates the search text in real time using state
-    const updateSearchText = (event) => {
-        setSearchText(event.target.value)
-    }
+    const handleOutsideClick = (event) => {
+        if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+            setIsExpanded(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleOutsideClick);
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, [isExpanded]);
 
     // When the user clicks on the search button, the form is submitted and the app redirects the user to the custom URL requested
     const handleSubmit = (event) => {
-        setIsExpanded(false);
         event.preventDefault();
-        console.log(searchText);
+        setIsExpanded(false);
         if (searchText.trim() != '') {
             let queryString = `title=true&q=${searchText}`;
             setSearchHistory(searchHistory => [...searchHistory, queryString]);
             router.push(`/artwork?title=true&q=${searchText}`);
         }
-        setSearchText("");
+        setSearchText('');
+        searchTextRef.current.value = '';
     }
 
     return (
         <>
-            <Navbar expand="lg" className="bg-dark navbar-dark fixed-top nav-bar" expanded={isExpanded}>
+            <Navbar ref={navbarRef} expand="lg" className="bg-dark navbar-dark fixed-top nav-bar" expanded={isExpanded}>
                 <Container>
                     <Navbar.Brand>Aryan Khurana</Navbar.Brand>
                     <Navbar.Toggle onClick={() => setIsExpanded(!isExpanded)} aria-controls="navbarScroll" />
@@ -49,7 +60,7 @@ export default function MainNav() {
                     {/* Form uses the idea of controlled components and keeps track of state */}
                     &nbsp;
                     <Form className="d-flex" onSubmit={handleSubmit}>
-                        <Form.Control onChange={updateSearchText} type="search" placeholder="Search" className="me-2" aria-label="Search" />
+                        <Form.Control ref={searchTextRef} onChange={(e) => {setSearchText(e.target.value)}} type="search" placeholder="Search" className="me-2" aria-label="Search" />
                         <Button type='submit' variant="outline-success">Search</Button>
                     </Form>&nbsp;
 

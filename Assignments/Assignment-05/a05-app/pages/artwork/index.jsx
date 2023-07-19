@@ -55,12 +55,12 @@ export default function ArtHome() {
 
     return (
         <>
-            <Container>
+            <Container className="justify-content-center align-items-center">
             {artworkList.length > 0 ? (
                 <>
-                    <Row className="gy-4">
+                    <Row>
                         {artworkList[page - 1].map((currentObjectID) => (
-                            <Col lg={3} key={currentObjectID}>
+                            <Col xl={3} lg={4} md={6} sm={12} key={currentObjectID} className="d-flex justify-content-center">
                     <ArtworkCard objectID={currentObjectID} />
                             </Col>
                         ))}

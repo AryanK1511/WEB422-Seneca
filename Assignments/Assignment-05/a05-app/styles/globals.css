@@ -32,6 +32,7 @@ html, body {
     box-shadow: 0 0 2.5px #fff, 0 0 2.5px #fff, 0 0 2.5px #fff, 0 0 2.5px #fff;
     font-weight: 700;
     color: #fff;
+    margin: 10px;
 }
 
 .card-title {
