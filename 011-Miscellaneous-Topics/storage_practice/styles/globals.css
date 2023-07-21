@@ -1,0 +1,17 @@
+.main-heading {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.box-options {
+    display: flex;
+    margin-right: 20px;
+}
+
+.box-options .form-check {
+    margin-right: 20px;
+}
+
+.form-label {
+    font-weight: 700;
+}
