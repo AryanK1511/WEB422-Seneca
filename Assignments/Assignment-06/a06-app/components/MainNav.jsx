@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
 import { searchHistoryAtom } from '@/store';
+import { addToHistory } from "@/lib/userData";
 
 export default function MainNav() {
     const router = useRouter();
@@ -33,12 +34,11 @@ export default function MainNav() {
     }, [isExpanded]);
 
     // When the user clicks on the search button, the form is submitted and the app redirects the user to the custom URL requested
-    const handleSubmit = (event) => {
+    async function handleSubmit(event) {
         event.preventDefault();
         setIsExpanded(false);
         if (searchText.trim() != '') {
-            let queryString = `title=true&q=${searchText}`;
-            setSearchHistory(searchHistory => [...searchHistory, queryString]);
+            setSearchHistory(await addToHistory(`title=true&q=${searchText}`)) 
             router.push(`/artwork?title=true&q=${searchText}`);
         }
         setSearchText('');

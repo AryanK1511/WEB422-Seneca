@@ -4,10 +4,13 @@ import { searchHistoryAtom } from "../store";
 import { useRouter } from "next/router";
 import styles from '@/styles/History.module.css';
 import { Container, Card, ListGroup, Button } from "react-bootstrap";
+import { removeFromHistory } from "@/lib/userData";
 
 export default function SearchHistory() {
   const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
   const router = useRouter();
+
+  if(!searchHistory) return null;
 
   let parsedHistory = [];
   searchHistory.forEach((h) => {
@@ -22,13 +25,9 @@ export default function SearchHistory() {
   };
 
   // The purpose of this function is to remove an element from the "searchHistory" list
-  const removeHistoryClicked = (e, index) => {
+  async function removeHistoryClicked(e, index) {
     e.stopPropagation(); // stop the event from trigging other events
-    setSearchHistory((searchHistory) => {
-      let x = [...searchHistory];
-      x.splice(index, 1);
-      return x;
-    });
+    setSearchHistory(await removeFromHistory(searchHistory[index]));
   };
 
   return (
