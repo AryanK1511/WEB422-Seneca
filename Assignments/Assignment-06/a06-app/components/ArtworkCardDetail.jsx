@@ -3,28 +3,34 @@ import useSWR from 'swr';
 import Card from 'react-bootstrap/Card';
 import { useAtom } from 'jotai';
 import { favouritesAtom } from '@/store';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
+import Error from 'next/error';  
+import { addToFavourites, removeFromFavourites } from '@/lib/userData';
 
 export default function ArtworkCardDetail({ objectID }) {
     // Get a reference to the favourites list
     const [ favourites, setFavourites ] = useAtom(favouritesAtom);
     // Changes button if the value is in favourites already
-    const [ showAdded, setShowAdded ] = useState(favourites.includes(objectID) ? true : false);
+    const [ showAdded, setShowAdded ] = useState(false);
 
     // Make a call to the museum API using the objectID passed as props to this component
     // Using conditional fetching: Use null or pass a function as key to conditionally fetch data. If the function throws or returns a falsy value, SWR will not start the request.
     const { data, error } = useSWR(objectID ? `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}` : null);
 
+    // pdate showAdded 
+    useEffect(()=>{
+        setShowAdded(favourites?.includes(objectID));
+    }, [favourites]);
+    
+
     // To be invoked when the button is clicked
-    const favouritesClicked = () => {
+    async function favouritesClicked() {
         // If the "showAdded" value in the state is true, then we must remove this piece of artwork from the favourites list.  
         if (showAdded) {
-            setFavourites(favourites => favourites.filter(fav => fav != objectID));
-            setShowAdded(false);
+            setFavourites(await removeFromFavourites(objectID));
         } else {
-            setFavourites(favourites => [...favourites, objectID]);
-            setShowAdded(true);
+            setFavourites(await addToFavourites(objectID));
         }
     }
 

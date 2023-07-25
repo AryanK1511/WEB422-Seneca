@@ -20,6 +20,9 @@ export default function Favourites() {
             setArtworkList(favourites);
     }, []);
 
+    // List doesn't temporarily show the "Nothing Here" message
+    if(!favourites) return null;
+
     return (
         <>
             <Container>
