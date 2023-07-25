@@ -62,3 +62,13 @@ html, body {
 .is-invalid {
     color: red;
 }
+
+.form-text {
+    color: #fff;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.form-link {
+    text-decoration: none;
+}

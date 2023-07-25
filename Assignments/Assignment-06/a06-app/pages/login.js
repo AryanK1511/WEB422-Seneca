@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { getHistory, getFavourites } from "@/lib/userData";
 import { useAtom } from "jotai";
 import { favouritesAtom, searchHistoryAtom } from "@/store";
+import Link from "next/link";
 
 export default function Login(props){
     // Form field values within the "state"
@@ -57,7 +58,8 @@ export default function Login(props){
                     <Form.Control type="password" value={password} id="password" name="password" onChange={e => setPassword(e.target.value)} />
                 </Form.Group>
                 <br />
-                <Button variant="primary" className="pull-right" type="submit">Login</Button>
+                <Button variant="dark" className="pull-right" type="submit">Login</Button><br /><br />
+                <p className="form-text">Don&lsquo;t have an account? <Link className="form-link" href="/register">Sign up</Link></p>
             </Form>
         </>
     );

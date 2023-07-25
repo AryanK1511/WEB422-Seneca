@@ -25,12 +25,12 @@ export default function Favourites() {
 
     return (
         <>
-            <Container>
+            <Container className="justify-content-center align-items-center">
             {artworkList.length > 0 ? (
                 <>
                     <Row className="gy-4">
                         {artworkList.map((currentObjectID) => (
-                            <Col lg={3} key={currentObjectID}>
+                            <Col lg={3} key={currentObjectID} className="d-flex justify-content-center">
                                 <ArtworkCard objectID={currentObjectID} />
                             </Col>
                         ))}
