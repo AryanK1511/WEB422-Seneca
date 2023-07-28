@@ -5,8 +5,10 @@ You can find the course notes here: [WEB422 Notes](https://webprogrammingforapps
 ## Marks secured
 - **Assignment 1:** 100 / 100
 - **Assignment 2:** 90 / 100 (The modal does not close when you click outside of it)
-- **Assignment 3:** Not Released
+- **Assignment 3:** 100 / 100
 - **Assignment 4:** Not finished yet
+- **Assignment 5:** Not finished yet
+- **Assignment 6:** Not finished yet
 
 # Disclaimer
 Please don't just copy the code mindlessly without trying to solve the problems yourself, it's totally pointless if you actually wanna learn how to write software and a blatant violation of the [Academic Integrity](https://www.senecacollege.ca/about/policies/academic-integrity-policy.html) policy of the course.
